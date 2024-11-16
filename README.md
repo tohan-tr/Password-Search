@@ -1,37 +1,35 @@
+Password Search is a web application that checks whether a given password exists in a database of 20 million leaked passwords and saves any missing passwords to a new file. Built with Flask, this tool provides a user-friendly interface using HTML, CSS, and JS for quick and easy usage.
+Features
 
-Password Search projesi, internete sızdırılmış 20 milyon şifreyi kayıtlı olduğu dosyada bulunup bulunmadığını kontrol eden ve bulunmayan şifreleri otomatik olarak bir dosyaya kaydeden bir web uygulamasıdır. Flask tabanlı bu araç, kullanıcı dostu HTML/CSS/JS arayüzü ile hızlı ve kolay kullanım sunar.
+    Password Lookup: The entered password is searched in the password/password.txt file, and the user is notified if the password is found.
+    Add New Password: If the password is not found in password.txt, it is automatically added to password/new.txt in the password folder.
+    View Total Number of Passwords: By clicking on the information icon, the total number of stored passwords can be viewed.
+    Copying Disabled: To increase security, right-clicking and copying actions are disabled.
 
-Özellikler
+Project Structure
 
-    Şifre Sorgulama: Girilen şifre, password/password.txt dosyasında aranır ve bulunduğunda kullanıcıya bilgi verilir.
-    Yeni Şifre Kaydetme: Şifre password.txt dosyasında yoksa, password klasöründeki new.txt dosyasına eklenir.
-    Toplam Şifre Sayısı Görüntüleme: Bilgi simgesine tıklanarak toplam kayıtlı şifre sayısı görülebilir.
-    Kopyalama Engeli: Güvenliği artırmak amacıyla sağ tıklama ve kopyalama gibi işlemler devre dışı bırakılmıştır.
+    start.py: Python file that runs the Flask-based web application.
+    password/password.txt: Main file where the stored passwords are kept.
+    templates/index.html: HTML file for the user interface.
 
-Proje Yapısı
+Installation
 
-    start.py: Flask tabanlı web uygulamasını çalıştıran Python dosyası.
-    password/password.txt: Kayıtlı şifrelerin saklandığı ana dosya.
-    templates/index.html: Kullanıcı arayüzü için HTML dosyası.
-
-Kurulum
-
-    Projeyi klonlayın:
+    Clone the repository:
 
 git clone https://github.com/tohan-tr/Password-Search/edit/main/
 
-Gerekli bağımlılıkları yükleyin:
+    Install required dependencies:
 
 pip install -r requirements.txt
 
-Uygulamayı başlatın:
+    Start the application:
 
-    python start.py
+python start.py
 
-    Tarayıcınızda http://127.0.0.1:5005 adresine giderek uygulamayı kullanabilirsiniz.
+    Open the application by navigating to http://127.0.0.1:5005 in your browser.
 
-Kullanım
+Usage
 
-    Şifre Sorgulama: Şifreyi arama çubuğuna girin ve "Enter" tuşuna basarak şifre sorgulamasını başlatın.
-    Sonuçlar: Şifre password.txt içinde bulunursa "Şifre bulundu!" mesajı, yoksa "Şifre bulunamadı." mesajı görünür.
-    GitHub Profili: Sağ üst köşedeki GitHub düğmesine tıklayarak projenin GitHub sayfasına erişin.
+    Password Lookup: Enter the password in the search bar and press "Enter" to begin the search.
+    Results: If the password is found in password.txt, a "Password found!" message is displayed. If not, a "Password not found" message will appear.
+    GitHub Profile: Click on the GitHub button at the top-right corner to access the project’s GitHub page.
