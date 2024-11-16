@@ -157,7 +157,7 @@
       const password = document.getElementById("password").value;
       const resultElement = document.getElementById("result");
 
-      resultElement.textContent = "Aranıyor...";
+      resultElement.textContent = "Searching...";
 
       fetch("/check_password", {
         method: "POST",
@@ -167,18 +167,18 @@
       .then(response => response.json())
       .then(data => {
         if (data.found) {
-          resultElement.textContent = "Şifre bulundu!";
+          resultElement.textContent = "Password found!";
           resultElement.classList.add("found");
           resultElement.classList.remove("not-found");
         } else {
-          resultElement.textContent = "Şifre bulunamadı.";
+          resultElement.textContent = "Password not found.";
           resultElement.classList.add("not-found");
           resultElement.classList.remove("found");
         }
       })
       .catch(error => {
-        resultElement.textContent = "Bir hata oluştu.";
-        console.error("Hata:", error);
+        resultElement.textContent = "An error occurred.";
+        console.error("Error:", error);
       });
     }
 
@@ -210,7 +210,7 @@
 
   <div id="question-btn" class="question-btn" onclick="toggleQuestionButton()">
     <span>?</span>
-    <span>Toplam Şifre : 20946716</span>
+    <span>Total Passwords: 20,946,716</span>
   </div>
 </body>
 </html>
