@@ -9,6 +9,10 @@ def get_password_file_path():
     tools_folder = "/home/user/Tools/project/Password Search/password"
     return os.path.join(tools_folder, "password.txt")
 
+def get_new_file_path():
+    tools_folder = "/home/user/Tools/project/Password Search/password"
+    return os.path.join(tools_folder, "new.txt")
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -31,7 +35,12 @@ def check_password():
             if password in passwords:
                 return jsonify({"message": "Password found!", "found": True})
             else:
-                return jsonify({"message": "Password not found.", "found": False})
+                new_file_path = get_new_file_path()
+
+                with open(new_file_path, "a") as new_file:
+                    new_file.write(password + "\n")
+
+                return jsonify({"message": "Password not found, but added to new.txt.", "found": False})
 
         return jsonify({"message": "Please enter a password.", "found": False})
 
