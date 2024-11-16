@@ -132,7 +132,6 @@
   </style>
 
   <script>
-    // Sağ tık ve kopyalama engelleme
     document.addEventListener('contextmenu', function(event) {
       event.preventDefault();
     });
@@ -158,7 +157,7 @@
       const password = document.getElementById("password").value;
       const resultElement = document.getElementById("result");
 
-      resultElement.textContent = "Aranıyor..."; // Aranıyor mesajı göster
+      resultElement.textContent = "Aranıyor...";
 
       fetch("/check_password", {
         method: "POST",
