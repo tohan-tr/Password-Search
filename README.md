@@ -16,7 +16,7 @@ Installation
 
     Clone the repository:
 
-git clone https://github.com/tohan-tr/Password-Search/edit/main/
+git clone https://github.com/tohan-tr/Password-Search/tree/main
 
     Install required dependencies:
 
