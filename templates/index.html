@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Password Search</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMUuif7s29PHsVjo8aEbbVYUewC/9y5HklDYoE" crossorigin="anonymous">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background-color: #f4f4f9;
+      user-select: none;
+    }
+    .container {
+      text-align: center;
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .header {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .header .left {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+    }
+    .header .right a {
+      text-decoration: none;
+      font-size: 1rem;
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .header .right a:hover {
+      background-color: #ddd;
+    }
+    .github-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      text-decoration: none;
+      font-size: 1rem;
+      color: white;
+      background-color: black;
+      padding: 8px 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    .github-btn:hover {
+      background-color: white;
+      color: black;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #333;
+      margin-bottom: 60px;
+    }
+    .input-container {
+      position: relative;
+      width: 720px;
+    }
+    input[type="text"] {
+      width: 100%;
+      height: 52px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 26px;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    #result {
+      margin-top: 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .found {
+      color: #ff4b4b;
+    }
+    .not-found {
+      color: #28a745;
+    }
+    .question-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+      background-color: #333;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .question-btn-expanded {
+      width: 200px;
+      height: 40px;
+      border-radius: 5px;
+      justify-content: flex-start;
+      padding-left: 10px;
+    }
+    .question-btn-expanded span:first-child {
+      display: none;
+    }
+    .question-btn-expanded span:last-child {
+      display: inline-block;
+      font-size: 1rem;
+      color: white;
+    }
+    .question-btn span:last-child {
+      display: none;
+    }
+  </style>
+
+  <script>
+    // Sağ tık ve kopyalama engelleme
+    document.addEventListener('contextmenu', function(event) {
+      event.preventDefault();
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.ctrlKey || event.metaKey) {
+        if (['s', 'c', 'v', 'u', 'p', 'a'].includes(event.key.toLowerCase())) {
+          event.preventDefault();
+        }
+      }
+    });
+
+    document.addEventListener('dragstart', function(event) {
+      event.preventDefault();
+    });
+
+    function toggleQuestionButton() {
+      const questionBtn = document.getElementById("question-btn");
+      questionBtn.classList.toggle("question-btn-expanded");
+    }
+
+    function searchPassword() {
+      const password = document.getElementById("password").value;
+      const resultElement = document.getElementById("result");
+
+      resultElement.textContent = "Aranıyor..."; // Aranıyor mesajı göster
+
+      fetch("/check_password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.found) {
+          resultElement.textContent = "Şifre bulundu!";
+          resultElement.classList.add("found");
+          resultElement.classList.remove("not-found");
+        } else {
+          resultElement.textContent = "Şifre bulunamadı.";
+          resultElement.classList.add("not-found");
+          resultElement.classList.remove("found");
+        }
+      })
+      .catch(error => {
+        resultElement.textContent = "Bir hata oluştu.";
+        console.error("Hata:", error);
+      });
+    }
+
+    function checkEnter(event) {
+      if (event.key === "Enter") {
+        searchPassword();
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="header">
+    <div class="left">TOHAN</div>
+    <div class="right">
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+    </div>
+  </div>
+
+  <a href="https://github.com/your-github-profile" class="github-btn" target="_blank">GitHub</a>
+
+  <div class="container">
+    <h1>Password Search</h1>
+    <div class="input-container">
+      <input type="text" id="password" placeholder="Enter password" maxlength="70" onkeydown="checkEnter(event)">
+    </div>
+    <p id="result"></p>
+  </div>
+
+  <div id="question-btn" class="question-btn" onclick="toggleQuestionButton()">
+    <span>?</span>
+    <span>Toplam Şifre : 20946716</span>
+  </div>
+</body>
+</html>
