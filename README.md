@@ -1,3 +1,9 @@
+I couldn't add the file to the project due to GitHub's 25MB file limit.
+You can download password.txt from here
+
+https://mega.nz/file/zmYWCDxK#EpjeJAkMjnMLjSzFCLpm_T-B0MkUEs6PDnqAs8QW9Hc
+
+
 Password Search is a web application that checks whether a given password exists in a database of 20 million leaked passwords and saves any missing passwords to a new file. Built with Flask, this tool provides a user-friendly interface using HTML, CSS, and JS for quick and easy usage.
 Features
 
